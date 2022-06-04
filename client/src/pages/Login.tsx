@@ -1,11 +1,19 @@
 import styled from 'styled-components'
 import { mobile, smallTablet, tablet } from '../responsive'
 
+const Background = styled.div`
+  width: 100vw;
+  height: 100vh;
+  background-image: url("./assets/mule2.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position-y: -0px;
+`
+
 const Container = styled.div`
   width: 100vw;
   height: 100vh;
-  background: linear-gradient(rgba(0, 0, 0, 0.13), #000000), url("./assets/mule.jpg");
-  background-size: cover;
+  background: linear-gradient(rgba(0, 0, 0, 0.13), #000000);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -13,7 +21,7 @@ const Container = styled.div`
 const Wrapper = styled.div`
   width: 35%;
   padding: 20px;
-  background-color: white;
+  background-color: #ffffff;
   @media only screen and (max-width: 902px) {
       width: 45%;
     }
@@ -66,20 +74,22 @@ const Link = styled.a`
 
 const Login = () => {
   return (
+    <Background>
     <Container>
-    <Wrapper>
-      <Title>FAZER LOG-IN</Title>
-      <Form>
-        <Input placeholder="usuário" type="text" />
-        <Input placeholder="senha" type="password" />
-        <ButtonsContainer>
-          <Button>ENTRAR</Button>
-          <Button inverse={true}>CRIAR CONTA</Button>
-        </ButtonsContainer>
-        <Link>NÃO LEMBRO MINHA SENHA</Link>
-      </Form>
-    </Wrapper>
-  </Container>
+      <Wrapper>
+        <Title>FAZER LOG-IN</Title>
+        <Form>
+          <Input placeholder="usuário" type="text" />
+          <Input placeholder="senha" type="password" />
+          <ButtonsContainer>
+            <Button>ENTRAR</Button>
+            <Button inverse={true}>CRIAR CONTA</Button>
+          </ButtonsContainer>
+          <Link>NÃO LEMBRO MINHA SENHA</Link>
+        </Form>
+      </Wrapper>
+    </Container>
+    </Background>
   )
 }
 
