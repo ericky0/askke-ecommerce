@@ -2,6 +2,7 @@ import styled from "styled-components"
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
+import { mobile } from "../responsive";
 
 const Info = styled.div`
   opacity: 0;
@@ -30,7 +31,7 @@ const Container = styled.div`
   justify-content: center;
   background-color: #f5fbfd;
   position: relative;
-
+  overflow: hidden;
   &:hover ${Info}{
     
     opacity: 1;
@@ -48,6 +49,8 @@ const Image = styled.img`
   height: 75%;
   z-index: 2;
   transform: scale(${(props: {size: number}) => props.size});
+  /* ${mobile({transform: "scale(1)"})} */
+
 `
 const Icon = styled.div`
   width: 40px;

@@ -1,6 +1,6 @@
 import styled from "styled-components"
 import SendIcon from '@mui/icons-material/Send';
-import { useEffect } from "react";
+import { mobile } from "../responsive";
 
 const Container = styled.div`
   height: 60vh;
@@ -18,6 +18,9 @@ const Description = styled.div`
   font-size: 24px;
   font-weight: 300;
   margin-bottom: 20px;
+  text-align: center;
+  ${mobile({padding: "0px 10px" })}
+
 `
 const InputContainer = styled.div`
   width: 50%;
@@ -26,6 +29,8 @@ const InputContainer = styled.div`
   display: flex;
   justify-content: space-between;
   border: 1px solid lightgray;
+  ${mobile({ width: "80%" })}
+  overflow: hidden;
 `
 const Input = styled.input`
   font-size: 20px;
@@ -49,7 +54,7 @@ const Newsletter = () => {
       <InputContainer>
         <Input placeholder="Seu melhor e-mail " type="email"/>
         <Button>
-          <SendIcon />
+          <SendIcon/>
         </Button>
       </InputContainer>
     </Container>

@@ -2,10 +2,11 @@ import styled from 'styled-components'
 import SearchIcon from '@mui/icons-material/Search';
 import Badge from '@mui/material/Badge';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
-
+import { mobile, smallTablet } from '../responsive'
 
 const Container = styled.div`
   height: 60px;
+  overflow: hidden;
 `
 
 const Wrapper = styled.div`
@@ -13,6 +14,8 @@ const Wrapper = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  ${smallTablet({padding: "15px 0"})}
+
 `
 
 const Left = styled.div`
@@ -23,6 +26,8 @@ const Left = styled.div`
 const Language = styled.span`
   font-size: 14;
   cursor: pointer;
+  ${smallTablet({display: "none"})}
+
 `
 
 const SearchContainer = styled.div`
@@ -31,9 +36,12 @@ const SearchContainer = styled.div`
   align-items: center;
   margin-left: 25px;
   padding: 5px;
+  ${mobile({marginLeft: "15px"})}
 `
 
 const Input = styled.input`
+  ${smallTablet({width: "120px"})}
+  ${mobile({width: "50px"})}
   border: none;
 `
 
@@ -43,6 +51,7 @@ const Center = styled.div`
 `
 
 const Logo = styled.h1`
+  ${mobile({fontSize: "24px"})}
   font-weight: bold;
 `
 
@@ -51,12 +60,18 @@ const Right = styled.div`
   display: flex;
   align-items: center;
   justify-content: flex-end;
+  gap: 25px;
+  ${smallTablet({flex: 2, justifyContent: "center"})}
+  ${mobile({ gap: "6px"})}
+  
+
 `
 
 const MenuItem = styled.div`
   font-size: 14px;
   cursor: pointer;
-  margin-left: 25px;
+  ${mobile({fontSize: "12px"})}
+
 `
 
 const Navbar = () => {
@@ -66,8 +81,8 @@ const Navbar = () => {
         <Left> 
           <Language> PT-BR </Language> 
           <SearchContainer>
-            <Input />
-            <SearchIcon style={{color: "gray", fontSize: 16}}/> 
+            <Input placeholder="procurar"/>
+            <SearchIcon style={{color: "gray", fontSize: 16}} /> 
           </SearchContainer>
         </Left>
         <Center> <Logo> ASKe. </Logo> </Center>

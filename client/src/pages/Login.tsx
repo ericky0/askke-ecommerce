@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import { mobile, smallTablet, tablet } from '../responsive'
 
 const Container = styled.div`
   width: 100vw;
@@ -13,6 +14,12 @@ const Wrapper = styled.div`
   width: 35%;
   padding: 20px;
   background-color: white;
+  @media only screen and (max-width: 902px) {
+      width: 45%;
+    }
+    ${tablet({ width: '50%' })}
+    ${smallTablet({ width: '75%' })}
+    ${mobile({ width: '95%' })}
 `
 const Title = styled.h1`
   font-size: 28px;
