@@ -1,5 +1,6 @@
 import styled from "styled-components"
 import SendIcon from '@mui/icons-material/Send';
+import { useEffect } from "react";
 
 const Container = styled.div`
   height: 60vh;
