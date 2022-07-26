@@ -2,6 +2,7 @@ import express from 'express'
 import mongoose from 'mongoose'
 import dotenv from 'dotenv'
 import { router } from './routes'
+import cors from 'cors'
 
 // config
 const app = express()
@@ -18,6 +19,7 @@ mongoose
   })
 
 // middlewares
+app.use(cors())
 app.use(express.json())
 app.use(router)
 

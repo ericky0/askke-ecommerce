@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom"
 import styled from "styled-components"
 import { mobile } from "../responsive"
 
@@ -41,17 +42,19 @@ const Button = styled.button`
 `
 
 type CategoryItemProps = {
-  item: {id: number, img: string, title: string}
+  item: {id: number, img: string, title: string, category: string}
 }
 
 const CategoryItem = ({item}: CategoryItemProps) => {
   return (
     <Container>
-      <Image src={item.img}/>
-      <Info>
-        <Title>{item.title}</Title>
-        <Button>COMPRE AGORA</Button>
-      </Info>
+      <Link to={`/products/${item.category}`}>
+        <Image src={item.img}/>
+        <Info>
+          <Title>{item.title}</Title>
+          <Button>COMPRE AGORA</Button>
+        </Info>
+      </Link>
     </Container>
   )
 }
