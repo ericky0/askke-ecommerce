@@ -117,6 +117,11 @@
   resolved "https://registry.yarnpkg.com/@types/node/-/node-17.0.39.tgz#3652d82e2a16b4ea679d5ea3143b816c91b7e113"
   integrity sha512-JDU3YLlnPK3WDao6/DlXLOgSNpG13ct+CwIO17V8q0/9fWJyeMJJ/VyZ1lv8kDprihvZMydzVwf0tQOqGiY2Nw==
 
+"@types/node@>=8.1.0":
+  version "18.6.1"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-18.6.1.tgz#828e4785ccca13f44e2fb6852ae0ef11e3e20ba5"
+  integrity sha512-z+2vB6yDt1fNwKOeGbckpmirO+VBDuQqecXkgeIqDlaOtmKn6hPR/viQ8cxCfqLU4fTlvM3+YjM367TukWdxpg==
+
 "@types/qs@*":
   version "6.9.7"
   resolved "https://registry.yarnpkg.com/@types/qs/-/qs-6.9.7.tgz#63bb7d067db107cc1e457c303bc25d511febf6cb"
@@ -144,6 +149,13 @@
   version "0.0.30"
   resolved "https://registry.yarnpkg.com/@types/strip-json-comments/-/strip-json-comments-0.0.30.tgz#9aa30c04db212a9a0649d6ae6fd50accc40748a1"
   integrity sha512-7NQmHra/JILCd1QqpSzl8+mJRc8ZHz3uDm8YV1Ks9IhK0epEiTw8aIErbvH9PI+6XbqhyIQy3462nEsn7UVzjQ==
+
+"@types/stripe@^8.0.417":
+  version "8.0.417"
+  resolved "https://registry.yarnpkg.com/@types/stripe/-/stripe-8.0.417.tgz#b651677a9fc33be8ce8fd5bceadd7ca077214244"
+  integrity sha512-PTuqskh9YKNENnOHGVJBm4sM0zE8B1jZw1JIskuGAPkMB+OH236QeN8scclhYGPA4nG6zTtPXgwpXdp+HPDTVw==
+  dependencies:
+    stripe "*"
 
 "@types/webidl-conversions@*":
   version "6.1.1"
@@ -870,6 +882,13 @@ qs@6.10.3:
   dependencies:
     side-channel "^1.0.4"
 
+qs@^6.10.3:
+  version "6.11.0"
+  resolved "https://registry.yarnpkg.com/qs/-/qs-6.11.0.tgz#fd0d963446f7a65e1367e01abd85429453f0c37a"
+  integrity sha512-MvjoMCJwEarSbUYk5O+nmoSzSutSsTwF85zcHPQ9OrlFoZOYIjaqBAJIqIXjptyD5vThxGq52Xu/MaJzRkIk4Q==
+  dependencies:
+    side-channel "^1.0.4"
+
 range-parser@~1.2.1:
   version "1.2.1"
   resolved "https://registry.yarnpkg.com/range-parser/-/range-parser-1.2.1.tgz#3cf37023d199e1c24d1a55b84800c2f3e6468031"
@@ -1025,6 +1044,14 @@ strip-json-comments@^2.0.0:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/strip-json-comments/-/strip-json-comments-2.0.1.tgz#3c531942e908c2697c0ec344858c286c7ca0a60a"
   integrity sha1-PFMZQukIwml8DsNEhYwobHygpgo=
+
+stripe@*, stripe@^9.15.0:
+  version "9.15.0"
+  resolved "https://registry.yarnpkg.com/stripe/-/stripe-9.15.0.tgz#d9c69b90799211fce1ef22c67b24dac63f888545"
+  integrity sha512-0Irs+6mNpZKhiXS/aieweXZEcOrJtUjPU0fIzEzrRg9VF9wyXWdUELWJbkxDhuyYMMKrrjA6c2YNtccBZX6tew==
+  dependencies:
+    "@types/node" ">=8.1.0"
+    qs "^6.10.3"
 
 supports-preserve-symlinks-flag@^1.0.0:
   version "1.0.0"

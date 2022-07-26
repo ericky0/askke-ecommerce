@@ -5,11 +5,13 @@ interface IProduct extends Document {
   description: string
   img: string
   categories: string[]
-  size: string
-  color: string
+  size: string[]
+  color: string[]
   price: number
   createdAt: Date
   updatedAt: Date
+  scale?: number
+  inStock: boolean
 }
 
 const ProductSchema: Schema = new Schema(
@@ -35,16 +37,26 @@ const ProductSchema: Schema = new Schema(
     },
 
     size: {
-      type: String
+      type: Array
     },
 
     color: {
-      type: String
+      type: Array
     },
 
     price: {
       type: Number,
       required: true
+    },
+
+    scale: {
+      type: Number,
+      required: false
+    },
+
+    inStock: {
+      type: Boolean,
+      default: true
     }
   },
   { timestamps: true }

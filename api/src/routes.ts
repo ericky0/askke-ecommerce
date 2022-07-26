@@ -2,14 +2,21 @@ import { Router } from 'express'
 import { AuthController } from './controllers/AuthController'
 import { UserController } from './controllers/UserController'
 import { ProductController } from './controllers/ProductController'
+import { CartController } from './controllers/CartController'
+import { OrderController } from './controllers/OrderController'
+import { StripeController } from './controllers/StripeController'
 import {
   verifyTokenAndAuthorization,
-  verifyTokenAndAdmin
+  verifyTokenAndAdmin,
+  verifyToken
 } from './middlewares/verifyToken'
 
 const authController = new AuthController()
 const userController = new UserController()
 const productController = new ProductController()
+const cartController = new CartController()
+const orderController = new OrderController()
+const striperController = new StripeController()
 
 const router = Router()
 
@@ -39,6 +46,43 @@ router.delete(
   productController.deleteProduct
 )
 router.get('/product/find/:id', productController.getProduct)
+
+// queries over there =)
 router.get('/product/find', productController.getAllProducts)
+
+// CART-CONTROLLER ROUTES
+
+router.post('/cart', verifyToken, cartController.newCart)
+router.put('/cart/:id', verifyTokenAndAuthorization, cartController.updateCart)
+router.delete(
+  '/cart/:id',
+  verifyTokenAndAuthorization,
+  cartController.deleteCart
+)
+// req.params.id should be => USER ID /// not CART ID
+router.get(
+  '/cart/find/:id',
+  verifyTokenAndAuthorization,
+  cartController.getCart
+)
+router.get('/cart/find/all', verifyTokenAndAdmin, cartController.getAllCarts)
+
+// ORDER-CONTROLLER ROUTES
+
+router.post('/order', verifyToken, orderController.newOrder)
+router.put('/order/:id', verifyTokenAndAdmin, orderController.updateOrder)
+router.delete('/order/:id', verifyTokenAndAdmin, orderController.deleteOrder)
+// req.params.id should be => USER ID /// not ORDER ID
+router.get(
+  '/order/find/:id',
+  verifyTokenAndAuthorization,
+  orderController.getOrder
+)
+router.get('/order/findall', verifyTokenAndAdmin, orderController.getAllOrders)
+router.get('/order/monthly', verifyTokenAndAdmin, orderController.getMonthly)
+
+// STRIPE
+
+router.post('/stripe/payment')
 
 export { router }

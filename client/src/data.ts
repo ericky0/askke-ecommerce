@@ -47,8 +47,8 @@ export const popularProducts = [
   },
   {
     id: 2,
-    img: './assets/sapato.png',
-    size: 1.2
+    img: 'https://i.ibb.co/BPyBP6n/sapato.png',
+    scale: 1.2
   },
   {
     id: 3,
@@ -68,8 +68,8 @@ export const popularProducts = [
   },
   {
     id: 7,
-    img: './assets/blusa.png',
-    size: 2
+    img: 'https://i.ibb.co/wsGV8Qt/blusa.png',
+    scale: 2
   },
   {
     id: 8,

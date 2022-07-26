@@ -2,7 +2,6 @@ import styled from "styled-components"
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
-import { mobile } from "../responsive";
 
 const Info = styled.div`
   opacity: 0;
@@ -49,7 +48,6 @@ const Image = styled.img`
   height: 75%;
   z-index: 2;
   transform: scale(${(props: {size: number}) => props.size});
-  /* ${mobile({transform: "scale(1)"})} */
 
 `
 const Icon = styled.div`
@@ -69,7 +67,7 @@ const Icon = styled.div`
 `
 
 type ProductProps = {
-  item: {id: number, img: string, size?: number}
+  item: {id: number, img: string, scale?: number}
 }
 
 const Product = ({item}: ProductProps) => {
@@ -77,7 +75,7 @@ const Product = ({item}: ProductProps) => {
   return (
     <Container> 
       <Circle />
-      <Image src={item.img} size={item.size ? item.size : 1}/>
+      <Image src={item.img} size={item.scale ? item.scale : 1}/>
       <Info>
         <Icon>
           <ShoppingCartOutlinedIcon />
