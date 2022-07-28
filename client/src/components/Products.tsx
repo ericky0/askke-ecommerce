@@ -10,13 +10,19 @@ const Container = styled.div`
   justify-content: space-between;
 `
 
+const Title = styled.h1`
+  font-size: 30px;
+  margin-bottom: 20px;
+`
+
 type ProductsType = {
   category?: string | null,
-  filters?: any,
-  sort?: string
+  filters?: Object,
+  sort?: string,
+  productsPage?: boolean
 }
 
-const Products = ({category, filters, sort}: ProductsType) => {
+const Products = ({category, filters, sort, productsPage}: ProductsType) => {
   const [products, setProducts] = useState<any[]>([])
   const [filteredProducts, setFilteredProducts] = useState<any[]>([])
 
@@ -28,19 +34,7 @@ const Products = ({category, filters, sort}: ProductsType) => {
           ? `/product/find?category=${category}`
           : '/product/find'
           )
-          
-          let teste: any[] = []
-          res.data.forEach((item: any) => {
-            teste.push(item.categories.includes(category))
-          })
-          
-        if(teste.length > 0){
           setProducts(res.data)
-        } else {
-          const secondRes = await api.get('/product/find')
-          setProducts(secondRes.data)
-        }
-        
 
       } catch (error) {
         console.log(error)
@@ -53,23 +47,41 @@ const Products = ({category, filters, sort}: ProductsType) => {
     category && 
       setFilteredProducts(
       products.filter((item) => 
-        Object.entries(filters).every(([key, value]) => 
+        Object.entries(filters!).every(([key, value]) => 
           item[key].includes(value)
         )
       )
     )
   }, [products, category, filters])
 
+  useEffect(() => {
+    if((sort === 'newest')) {
+      setFilteredProducts(prev => 
+        [...prev].sort((a, b) => a.createdAt - b.createdAt) 
+      )
+    } else if ((sort === 'asc')) {
+    setFilteredProducts(prev => 
+        [...prev].sort((a, b) => a.price - b.price) 
+      )
+    } else if ((sort === 'desc')){
+      setFilteredProducts(prev => 
+        [...prev].sort((a, b) => b.price - a.price) 
+      )
+    }
+    console.log(sort)
+  }, [sort])
+
   return (
     <Container> 
-      {filteredProducts.length === 0 && (
-        products.map((item) => (
-          <Product item={item} key={item.id}/>
-        ))
+      {filteredProducts.length === 0 && productsPage &&(
+        <Title>Nenhum produto encontrado</Title>
       )}
-      {filteredProducts.map((item) => (
-        <Product item={item} key={item.id}/>
-      ))}
+      {category 
+        ? filteredProducts.map((item) => ( <Product item={item} key={item.id}/> )) 
+        : products
+        .slice(0,7)
+        .map((item) => ( <Product item={item} key={item.id}/> )) 
+      } 
     </Container>
   )
 }

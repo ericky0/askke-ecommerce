@@ -3,6 +3,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import Badge from '@mui/material/Badge';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import { mobile, smallTablet } from '../responsive'
+import { Link } from 'react-router-dom';
 
 const Container = styled.div`
   height: 60px;
@@ -63,8 +64,6 @@ const Right = styled.div`
   gap: 25px;
   ${smallTablet({flex: 2, justifyContent: "center"})}
   ${mobile({ gap: "6px"})}
-  
-
 `
 
 const MenuItem = styled.div`
@@ -85,7 +84,7 @@ const Navbar = () => {
             <SearchIcon style={{color: "gray", fontSize: 16}} /> 
           </SearchContainer>
         </Left>
-        <Center> <Logo> ASKe. </Logo> </Center>
+        <Link to='/' style={{ color: 'inherit', textDecoration: 'inherit'}}><Center> <Logo> ASKe. </Logo> </Center></Link>
         <Right> 
 
           <MenuItem>REGISTRAR</MenuItem>

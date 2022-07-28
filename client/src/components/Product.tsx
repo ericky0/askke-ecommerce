@@ -47,7 +47,7 @@ const Circle = styled.div`
 const Image = styled.img`
   height: 75%;
   z-index: 2;
-  transform: scale(${(props: {size: number}) => props.size});
+  transform: scale(${(props: {size: any}) => props.size});
 
 `
 const Icon = styled.div`
@@ -71,11 +71,10 @@ type ProductProps = {
 }
 
 const Product = ({item}: ProductProps) => {
-
   return (
     <Container> 
       <Circle />
-      <Image src={item.img} size={item.scale ? item.scale : 1}/>
+      <Image src={item.img} size={item?.scale ? item?.scale : 1}/>
       <Info>
         <Icon>
           <ShoppingCartOutlinedIcon />

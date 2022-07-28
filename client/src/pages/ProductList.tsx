@@ -1,4 +1,4 @@
-import { ChangeEvent, useEffect, useState } from 'react'
+import { ChangeEvent, useState } from 'react'
 import { useLocation } from 'react-router-dom'
 import styled from 'styled-components'
 import Announcement from '../components/Announcement'
@@ -45,10 +45,6 @@ const ProductList = () => {
   const [filters, setFilters] = useState({})
   const [sort, setSort] = useState('newest')
 
-  // useEffect(() => {
-  //   console.log(category)
-  // }, [category])
-
   const handleFilters = (e: ChangeEvent<HTMLSelectElement>) => {
     const value = e.target.value
     setFilters({
@@ -62,45 +58,43 @@ const ProductList = () => {
       <Announcement />
       <Navbar />
       <Title>
-        Dresses
+        {category.toUpperCase()[0] + category.substring(1).toLowerCase()}
       </Title>
       <FilterContainer>
         <Filter>
-          <FilterText>Filter Products: </FilterText>
+          <FilterText>Filtrar Produtos: </FilterText>
           <Select name="color" onChange={handleFilters}>
             <Option disabled>
-              Color
+              Cor
             </Option>
-            <Option>Branco</Option>
-            <Option>Preto</Option>
-            <Option>Vermelho</Option>
-            <Option>Azul</Option>
-            <Option>Amarelo</Option>
-            <Option>Verde</Option>
+            <Option>branco</Option>
+            <Option>preto</Option>
+            <Option>vermelho</Option>
+            <Option>azul</Option>
+            <Option>amarelo</Option>
+            <Option>verde</Option>
+            <Option>laranja</Option>
           </Select>
           <Select name="size" onChange={handleFilters}>
             <Option disabled>
-              Size
+              Tamanho
             </Option>
-            <Option>XS</Option>
-            <Option>S</Option>
+            <Option>P</Option>
             <Option>M</Option>
-            <Option>L</Option>
-            <Option>XL</Option>
+            <Option>G</Option>
+            <Option>GG</Option>
           </Select>
         </Filter>
         <Filter>
-          <FilterText>Sort Products: </FilterText>
+          <FilterText>Sortear Produtos: </FilterText>
           <Select onChange={(e: ChangeEvent<HTMLSelectElement>) => setSort(e.target.value)}>
-            <Option value="newest">
-              Newest
-            </Option>
-            <Option value="asc">Price (asc)</Option>
-            <Option value="desc">Price (desc)</Option>
+            <Option value="newest"> Mais Recentes </Option>
+            <Option value="asc">Preço (crescente)</Option>
+            <Option value="desc">Preço (decrescente)</Option>
           </Select>
         </Filter>
       </FilterContainer>
-      <Products category={category} filters={filters} sort={sort}/>
+      <Products category={category} filters={filters} sort={sort} productsPage={true}/>
       <Newsletter />
       <Footer />
     </Container>
