@@ -3,6 +3,7 @@ import mongoose from 'mongoose'
 import dotenv from 'dotenv'
 import { router } from './routes'
 import cors from 'cors'
+import helmet from 'helmet'
 
 // config
 const app = express()
@@ -21,6 +22,11 @@ mongoose
 // middlewares
 app.use(cors())
 app.use(express.json())
+app.use(
+  helmet({
+    crossOriginResourcePolicy: false
+  })
+)
 app.use(router)
 
 app.listen(process.env.PORT || 3001, () =>

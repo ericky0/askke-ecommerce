@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react"
 import styled from "styled-components"
 import Product from "./Product"
-import api from "../services/api"
+import { singleProduct } from "../types/Product"
+import { publicRequest } from "../services/api"
 
 const Container = styled.div`
   padding: 20px;
@@ -15,33 +16,39 @@ const Title = styled.h1`
   margin-bottom: 20px;
 `
 
-type ProductsType = {
+type ProductsComponentType = {
   category?: string | null,
   filters?: Object,
   sort?: string,
   productsPage?: boolean
 }
 
-const Products = ({category, filters, sort, productsPage}: ProductsType) => {
+
+const Products = ({category, filters, sort, productsPage}: ProductsComponentType) => {
   const [products, setProducts] = useState<any[]>([])
-  const [filteredProducts, setFilteredProducts] = useState<any[]>([])
+  const [filteredProducts, setFilteredProducts] = useState<singleProduct[]>([])
 
   useEffect(() => {
     const getProducts = async () => {
       try {
-        const res = await api.get(
+        const res = await publicRequest.get(
           category 
           ? `/product/find?category=${category}`
           : '/product/find'
           )
           setProducts(res.data)
 
-      } catch (error) {
-        console.log(error)
+      } catch (error: any) {
+          console.log(error.response)
       }
     }
     getProducts()
   }, [category])
+
+  useEffect(() => {
+    console.log('produtos' + products)
+    console.log('produtos filtrados' + filteredProducts)
+  }, [filteredProducts, products])
     
   useEffect(() => {
     category && 
@@ -68,7 +75,6 @@ const Products = ({category, filters, sort, productsPage}: ProductsType) => {
         [...prev].sort((a, b) => b.price - a.price) 
       )
     }
-    console.log(sort)
   }, [sort])
 
   return (
@@ -77,10 +83,10 @@ const Products = ({category, filters, sort, productsPage}: ProductsType) => {
         <Title>Nenhum produto encontrado</Title>
       )}
       {category 
-        ? filteredProducts.map((item) => ( <Product item={item} key={item.id}/> )) 
+        ? filteredProducts.map((item) => ( <Product item={item} key={item._id}/> )) 
         : products
         .slice(0,7)
-        .map((item) => ( <Product item={item} key={item.id}/> )) 
+        .map((item) => ( <Product item={item} key={item._id}/> )) 
       } 
     </Container>
   )

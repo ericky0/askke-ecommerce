@@ -2,6 +2,10 @@ import styled from "styled-components"
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
+import { Link, useLocation } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { publicRequest } from "../services/api";
+import { singleProduct } from "../types/Product";
 
 const Info = styled.div`
   opacity: 0;
@@ -47,8 +51,6 @@ const Circle = styled.div`
 const Image = styled.img`
   height: 75%;
   z-index: 2;
-  transform: scale(${(props: {size: any}) => props.size});
-
 `
 const Icon = styled.div`
   width: 40px;
@@ -67,20 +69,40 @@ const Icon = styled.div`
 `
 
 type ProductProps = {
-  item: {id: number, img: string, scale?: number}
+  item: {_id: string, img: string, scale?: number}
 }
 
 const Product = ({item}: ProductProps) => {
+
+  const location = useLocation()
+  const productId = location.pathname.split('/')[2]
+
+  const [product, setProduct] = useState<singleProduct>()
+
+  useEffect(() => {
+    const getProduct = async () => {
+      try {
+        const res = await publicRequest.get(`/product/find/${productId}`)
+        setProduct(res.data)
+      } catch (error: any) {
+        console.error(error.response.data)
+      }
+    }
+    getProduct()
+  }, [productId])
+
   return (
     <Container> 
       <Circle />
-      <Image src={item.img} size={item?.scale ? item?.scale : 1}/>
+      <Image src={item.img}/>
       <Info>
         <Icon>
           <ShoppingCartOutlinedIcon />
         </Icon>
         <Icon>
-          <SearchOutlinedIcon />
+          <Link to={`/product/${item._id}`} style={{ color: 'inherit', textDecoration: 'inherit'}}>
+            <SearchOutlinedIcon />
+          </Link>
         </Icon>
         <Icon>
           <FavoriteBorderOutlinedIcon />
