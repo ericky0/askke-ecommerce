@@ -67,13 +67,13 @@ const ProductList = () => {
             <Option disabled>
               Cor
             </Option>
-            <Option>branco</Option>
-            <Option>preto</Option>
-            <Option>vermelho</Option>
-            <Option>azul</Option>
-            <Option>amarelo</Option>
-            <Option>verde</Option>
-            <Option>laranja</Option>
+            <Option value='white'>branco</Option>
+            <Option value='black'>preto</Option>
+            <Option value='red'>vermelho</Option>
+            <Option value='blue'>azul</Option>
+            <Option value='yellow'>amarelo</Option>
+            <Option value='green'>verde</Option>
+            <Option value='orange'>laranja</Option>
           </Select>
           <Select name="size" onChange={handleFilters}>
             <Option disabled>

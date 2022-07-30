@@ -2,11 +2,7 @@ import styled from "styled-components"
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
-import { Link, useLocation } from "react-router-dom";
-import { useEffect, useState } from "react";
-import { publicRequest } from "../services/api";
-import { singleProduct } from "../types/Product";
-
+import { Link} from "react-router-dom";
 const Info = styled.div`
   opacity: 0;
   width: 100%;
@@ -73,23 +69,6 @@ type ProductProps = {
 }
 
 const Product = ({item}: ProductProps) => {
-
-  const location = useLocation()
-  const productId = location.pathname.split('/')[2]
-
-  const [product, setProduct] = useState<singleProduct>()
-
-  useEffect(() => {
-    const getProduct = async () => {
-      try {
-        const res = await publicRequest.get(`/product/find/${productId}`)
-        setProduct(res.data)
-      } catch (error: any) {
-        console.error(error.response.data)
-      }
-    }
-    getProduct()
-  }, [productId])
 
   return (
     <Container> 
