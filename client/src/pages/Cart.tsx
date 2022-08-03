@@ -1,9 +1,15 @@
 import { Add, Remove } from '@mui/icons-material'
+import { useSelector } from 'react-redux'
 import styled from 'styled-components'
 import Announcement from '../components/Announcement'
 import Footer from '../components/Footer'
 import Navbar from '../components/Navbar'
+import { RootState } from '../redux/store'
 import { cart } from '../responsive'
+import StripeCheckout, { Token } from 'react-stripe-checkout'
+import { useEffect, useState } from 'react'
+import { userRequest } from '../services/api'
+import { useNavigate } from 'react-router-dom'
 
 const Container = styled.div`
   
@@ -59,6 +65,7 @@ const Product = styled.div`
   display: flex;
   justify-content: space-between;
   ${cart({flexDirection: "column"})}
+  margin-bottom: 30px;
 `
 
 const ProductDetail = styled.div`
@@ -93,6 +100,7 @@ const Color = styled.div`
   height: 20px;
   border-radius: 50%;
   background-color: ${(props: {color: string}) => props.color};
+  border: 1px solid black;
 `
 
 const ProductSize = styled.span``
@@ -160,88 +168,106 @@ const Hr = styled.hr`
   height: 2px;
 `
 
+
 const Cart = () => {
+
+  const KEY = process.env.REACT_APP_STRIPE!
+  const cart = useSelector((state: RootState) => state.cart)
+  const [stripeToken, setStripeToken] = useState<Token>()
+  const navigate = useNavigate()
+
+  const onToken = (token: Token) => {
+    setStripeToken(token)
+  }
+
+  useEffect(() => {
+    const makeRequest = async () => {
+      try {
+        const res = await userRequest.post('/stripe/payment', {
+            tokenId: stripeToken?.id,
+            amount: 500
+        })
+        navigate('/success', {state: { stripeData: res.data, cart: cart }})
+      } catch (error) {
+        console.log(error)
+      }
+    }
+    stripeToken && makeRequest()
+  }, [stripeToken, cart, navigate])
+
   return (
     <Container> 
       <Announcement />
       <Navbar />
       <Wrapper>
-        <Title>YOUR BAG</Title>
+        <Title>SEU CARRINHO</Title>
         <Top>
-          <TopButton>CONTINUE SHOPPING</TopButton>
+          <TopButton>CONTINUE COMPRANDO</TopButton>
           <TopTexts>
-            <TopText>Shopping Bag(2)</TopText>
-            <TopText>Your Wishlist (0)</TopText>
+            <TopText>Bolsa de Compras({cart.quantity})</TopText>
+            <TopText>Lista de Desejos (0)</TopText>
           </TopTexts>
-          <TopButton type="filled">CHECKOUT NOW</TopButton>
+          <TopButton type="filled">COMPRAR AGORA</TopButton>
         </Top>
         <Bottom>
           <Info>
-            <Product>
-              <ProductDetail>
-                <Image src="https://hips.hearstapps.com/vader-prod.s3.amazonaws.com/1614188818-TD1MTHU_SHOE_ANGLE_GLOBAL_MENS_TREE_DASHERS_THUNDER_b01b1013-cd8d-48e7-bed9-52db26515dc4.png?crop=1xw:1.00xh;center,top&resize=480%3A%2A" alt="" />
-                <Details>
-                  <ProductName><b>Produto:</b> TÊNIS PRETO ALEATÓRIO</ProductName>
-                  <ProductId><b>ID:</b> 123456789</ProductId>
-                  <ProductColor> 
-                    <b>Cor:</b> 
-                    <Color color="black"/>
-                  </ProductColor>
-                  <ProductSize><b>Tamanho:</b> 40</ProductSize>
-                </Details>
-              </ProductDetail>
-              <PriceDetail>
-                <ProductAmountContainer> 
-                  <Add />
-                  <ProductAmount>2</ProductAmount>
-                  <Remove />
-                </ProductAmountContainer>
-                <ProductPrice>R$ 240,00</ProductPrice>
-              </PriceDetail>
-            </Product>
+            {cart.products.map(product => (
+              <Product>
+                <ProductDetail>
+                  <Image src={product.img} alt="" />
+                  <Details>
+                    <ProductName><b>Produto:</b> {product.title}</ProductName>
+                    <ProductId><b>ID:</b> {product._id} </ProductId>
+                    <ProductColor> 
+                      <b>Cor:</b> 
+                      <Color color={product.color}/>
+                    </ProductColor>
+                    <ProductSize><b>Tamanho:</b> {product.size}</ProductSize>
+                  </Details>
+                </ProductDetail>
+                <PriceDetail>
+                  <ProductAmountContainer> 
+                    <Add />
+                    <ProductAmount>{product.quantity}</ProductAmount>
+                    <Remove />
+                  </ProductAmountContainer>
+                  <ProductPrice>R$ {product.price * product.quantity!}</ProductPrice>
+                </PriceDetail>
+              </Product>
+            ))
+            }
             <Hr />
-            <Product>
-              <ProductDetail>
-                <Image src="https://www.prada.com/content/dam/pradanux_products/U/UCS/UCS319/1YOTF010O/UCS319_1YOT_F010O_S_182_SLF.png" alt="" />
-                <Details>
-                  <ProductName><b>Produto:</b> CAMISA COLORIDA ALEATÓRIA</ProductName>
-                  <ProductId><b>ID:</b> 987654321</ProductId>
-                  <ProductColor> 
-                    <b>Cor:</b> 
-                    <Color color="orange"/>
-                  </ProductColor>
-                  <ProductSize><b>Tamanho:</b> M</ProductSize>
-                </Details>
-              </ProductDetail>
-              <PriceDetail>
-                <ProductAmountContainer> 
-                  <Add />
-                  <ProductAmount>1</ProductAmount>
-                  <Remove />
-                </ProductAmountContainer>
-                <ProductPrice>R$ 120,00</ProductPrice>
-              </PriceDetail>
-            </Product>
           </Info>
           <Summary>
-            <SummaryTitle>ORDER SUMMARY</SummaryTitle>
+            <SummaryTitle>RESUMO DO PEDIDO</SummaryTitle>
             <SummaryItem>
               <SummaryItemText>Subtotal</SummaryItemText>
-              <SummaryItemPrice>R$ 360,00</SummaryItemPrice>
+              <SummaryItemPrice>R$ {cart.total}</SummaryItemPrice>
             </SummaryItem>
             <SummaryItem>
-              <SummaryItemText>Estimated Shipping</SummaryItemText>
+              <SummaryItemText>Envio Estimado</SummaryItemText>
               <SummaryItemPrice>R$ 15,40</SummaryItemPrice>
             </SummaryItem>
             <SummaryItem>
-              <SummaryItemText>Shipping Discount</SummaryItemText>
+              <SummaryItemText>Desconto de Envio</SummaryItemText>
               <SummaryItemPrice> R$ -15,40</SummaryItemPrice>
             </SummaryItem>
             <SummaryItem type="total">
               <SummaryItemText>Total</SummaryItemText>
-              <SummaryItemPrice>R$ 360,00</SummaryItemPrice>
+              <SummaryItemPrice>R$ {cart.total}</SummaryItemPrice>
             </SummaryItem>
-            <Button>CHECKOUT NOW</Button>
+            <StripeCheckout
+              name='ASKe Shop'
+              image='https://media-exp1.licdn.com/dms/image/C4E03AQGDXvj-okKVpA/profile-displayphoto-shrink_800_800/0/1654195318530?e=1665014400&v=beta&t=0H11KB7SV3HqUP6aC8IKWVEtYZUk9xKOqSts5ylx4XM'
+              billingAddress
+              shippingAddress
+              description={`Your total is R$${cart.total}`}
+              amount={500}
+              token={onToken}
+              stripeKey={KEY!}
+            > 
+              <Button>COMPRAR AGORA</Button>
+            </StripeCheckout>
           </Summary>
         </Bottom>
       </Wrapper>

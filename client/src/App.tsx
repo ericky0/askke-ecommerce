@@ -13,6 +13,7 @@ import {
   Navigate,
   // Navigate
 } from "react-router-dom";
+import Success from './pages/Success';
 
 
 function App() {
@@ -32,6 +33,7 @@ function App() {
             : <Login />
           }/>
           <Route path='/cart' element={<Cart/>}/>
+          <Route path='/success' element={<Success/>}/>
           <Route path='/product/:id' element={<Product/>}/>
           <Route path='/products/:category' element={<ProductList/>}/>
         </Routes>

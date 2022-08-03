@@ -46,11 +46,6 @@ const Products = ({category, filters, sort, productsPage}: ProductsComponentType
   }, [category])
 
   useEffect(() => {
-    console.log('produtos' + products)
-    console.log('produtos filtrados' + filteredProducts)
-  }, [filteredProducts, products])
-    
-  useEffect(() => {
     category && 
       setFilteredProducts(
       products.filter((item) => 

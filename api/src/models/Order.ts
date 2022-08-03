@@ -4,7 +4,14 @@ interface IOrder extends Document {
   userId: string
   products: [{ productId: string; quantity: number }]
   amount: number
-  address: Object
+  address: {
+    city: string
+    country: string
+    line1: string
+    line2: string
+    postal_code: string
+    state: any
+  }
   status: string
   createdAt: string
   updatedAt: string

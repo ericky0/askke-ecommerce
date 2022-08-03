@@ -1,13 +1,12 @@
 import express from 'express'
 import mongoose from 'mongoose'
-import dotenv from 'dotenv'
+require('dotenv').config()
 import { router } from './routes'
 import cors from 'cors'
 import helmet from 'helmet'
 
 // config
 const app = express()
-dotenv.config()
 
 // database connection
 mongoose

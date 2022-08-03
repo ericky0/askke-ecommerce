@@ -16,7 +16,7 @@ const userController = new UserController()
 const productController = new ProductController()
 const cartController = new CartController()
 const orderController = new OrderController()
-const striperController = new StripeController()
+const stripeController = new StripeController()
 
 const router = Router()
 
@@ -82,7 +82,6 @@ router.get('/order/findall', verifyTokenAndAdmin, orderController.getAllOrders)
 router.get('/order/monthly', verifyTokenAndAdmin, orderController.getMonthly)
 
 // STRIPE
-
-router.post('/stripe/payment')
+router.post('/stripe/payment', stripeController.payment)
 
 export { router }

@@ -1,7 +1,8 @@
 import { Request, Response } from 'express'
 import Stripe from 'stripe'
 
-const secret = process.env.STRIPE_KEY
+const secret = process.env.STRIPE_KEY!
+
 const stripe = new Stripe(secret, {
   apiVersion: '2020-08-27'
 })

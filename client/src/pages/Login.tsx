@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import styled from 'styled-components'
 import { mobile, smallTablet, tablet } from '../responsive'
 
@@ -73,6 +74,8 @@ const Link = styled.a`
 `
 
 const Login = () => {
+  const [username, setUsername] = useState('')
+  const [username, setUsername] = useState('')
   return (
     <Background>
     <Container>
