@@ -14,23 +14,26 @@ import {
   // Navigate
 } from "react-router-dom";
 import Success from './pages/Success';
+import { RootState } from './redux/store';
+import { useSelector } from 'react-redux';
 
 
 function App() {
-  const user = true
+  const user = useSelector((state: RootState) => state.user.currentUser)
   return (
       <Router>
         <Routes>
           <Route path='/' element={<Home/>}/>
           <Route path='/register' element={
-            user // there's a user?
+            user// there's a user?
             ? <Navigate to='/' /> 
             : <Register />
           }/>
           <Route path='/login' element={
-            user // there's a user?
-            ? <Navigate to='/' /> 
-            : <Login />
+            user// there's a user?
+            ? <Navigate to='/' />
+            : <Login /> 
+
           }/>
           <Route path='/cart' element={<Cart/>}/>
           <Route path='/success' element={<Success/>}/>

@@ -28,7 +28,7 @@ class AuthController {
     try {
       const user = await User.findOne({ username: req.body.username })
       console.log(user)
-      !user && res.status(401).json('wrong credentialsfgf')
+      !user && res.status(401).json('no user')
 
       const hashedPassword = CryptoJS.AES.decrypt(
         user!.password,
@@ -50,7 +50,7 @@ class AuthController {
       )
 
       const { password, ...others } = user!._doc
-      res.status(200).json({ ...others, accessToken })
+      return res.status(200).json({ ...others, accessToken })
     } catch (error) {
       res.status(500).json(error)
     }
