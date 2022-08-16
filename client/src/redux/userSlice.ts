@@ -7,14 +7,6 @@ interface UserInterface {
   error: boolean
 }
 
-// _id: '213',
-// createdAt: new Date(),
-// email: 'erick@gmail.com',
-// isAdmin: true,
-// password: '233232',
-// updatedAt: new Date(),
-// username: 'erick hogarth'
-
 const initialState: UserInterface = {
   currentUser: null,
   isFetching: false,
