@@ -27,9 +27,7 @@ class AuthController {
   async login(req: Request, res: Response) {
     try {
       const user = await User.findOne({ username: req.body.username })
-      console.log(user)
       !user && res.status(401).json('no user')
-
       const hashedPassword = CryptoJS.AES.decrypt(
         user!.password,
         process.env.SECRET_KEY!
@@ -39,7 +37,6 @@ class AuthController {
 
       OriginalPassword !== req.body.password &&
         res.status(401).json('wrong credentials')
-
       const accessToken = jwt.sign(
         {
           id: user?._id,
@@ -49,10 +46,11 @@ class AuthController {
         { expiresIn: '3d' }
       )
 
-      const { password, ...others } = user!._doc
-      return res.status(200).json({ ...others, accessToken })
+      const { password, ...others } = user._doc
+      
+      return res.status(200).json({ ...others, accessToken})
     } catch (error) {
-      res.status(500).json(error)
+      return res.status(500).json(error)
     }
   }
 }
