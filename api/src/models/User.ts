@@ -8,6 +8,7 @@ interface IUser extends Document {
   isAdmin: boolean
   createdAt: Date
   updatedAt: Date
+  img: string
   _doc?: any
 }
 
@@ -33,7 +34,8 @@ const UserSchema: Schema = new Schema(
     isAdmin: {
       type: Boolean,
       default: false
-    }
+    },
+    img: { type: String }
   },
   { timestamps: true }
 )

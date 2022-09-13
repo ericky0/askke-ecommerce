@@ -84,7 +84,6 @@ class OrderController {
 
   // GET ALL ORDERS
   async getAllOrders(req: Request, res: Response) {
-    console.log('salve')
     try {
       const orders = await Order.find()
       res.status(200).json(orders)

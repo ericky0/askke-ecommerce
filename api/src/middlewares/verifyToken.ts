@@ -8,7 +8,6 @@ const verifyToken = (req: Request, res: Response, next: NextFunction) => {
   // decode token
   if (authHeader) {
     const token = authHeader.split(' ')[1].toString()
-    console.log(token)
     // verifies secret and checks exp
     jwt.verify(token, 'erick', (err: Error, user: any) => {
       if (err) {

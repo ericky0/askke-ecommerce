@@ -35,8 +35,9 @@ class AuthController {
 
       const OriginalPassword = hashedPassword.toString(CryptoJS.enc.Utf8)
 
-      OriginalPassword !== req.body.password &&
-        res.status(401).json('wrong credentials')
+      if (OriginalPassword !== req.body.password) {
+        return res.status(401).json('wrong credentials')
+      }
       const accessToken = jwt.sign(
         {
           id: user?._id,
@@ -47,8 +48,8 @@ class AuthController {
       )
 
       const { password, ...others } = user._doc
-      
-      return res.status(200).json({ ...others, accessToken})
+
+      return res.status(200).json({ ...others, accessToken })
     } catch (error) {
       return res.status(500).json(error)
     }
