@@ -1,0 +1,23 @@
+.loginPage {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  flex-direction: column;
+
+  input[type='text'] {
+    padding: 10px;
+    margin-bottom: 20px;
+  }
+
+  input[type='password'] {
+    padding: 10px;
+    margin-bottom: 20px;
+
+  }
+
+  button {
+    padding: 10px;
+    width: 100px;
+  }
+}
