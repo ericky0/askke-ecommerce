@@ -1,6 +1,6 @@
 <h1>ASKe - E-commerce</h1>
 
-> Status: in progress =)
+> Status: finished =)
 > 
 ![image](https://user-images.githubusercontent.com/53923000/171962028-c00b45d7-e184-4645-9a67-d5c4865095bd.png)
 ![login](https://user-images.githubusercontent.com/53923000/172026603-a3bdaee8-14ef-4aac-8051-2102034144e9.PNG)
